@@ -11,7 +11,7 @@ openai.api_key = os.getenv("OPENAI_KEY")
 # WHERE "addr_state" = 'CA';"""
 
 #Configure the page title, favicon, layout, etc
-st.set_page_config(page_title="Data Bot")
+st.set_page_config(page_title="SQL Buddy")
 
 def getSQL(queryDescription):
     #queryDescription = "how many rows are in the customer table?"
@@ -115,10 +115,10 @@ def mainPage():
         st.session_state["queryResult"] = ""
 
     with container1:
-        st.header("Data Bot")
+        st.header("SQL Buddy")
 
     with container2:
-        plainEnghlishQuery = st.text_input(label="Ask a question about the data")
+        plainEnghlishQuery = st.text_input(label="Ask a question about the data in plain language.", value="How many customer from California had more than 10 transactions and a bad loan?")
         generateQueryButton = st.button("Get Answer")
         if generateQueryButton:
             st.session_state["generateQueryButtonState"] = True
