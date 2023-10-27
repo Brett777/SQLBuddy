@@ -2,7 +2,7 @@ import streamlit as st
 
 
 #Configure the page title, favicon, layout, etc
-st.set_page_config(page_title="Ask Gary")
+st.set_page_config(page_title="SQL Buddy")
 
 def mainPage():
     container1 = st.container()
