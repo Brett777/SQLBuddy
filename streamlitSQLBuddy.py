@@ -7,6 +7,7 @@ openai.api_key = os.getenv("OPENAI_KEY")
 st.set_page_config(page_title="SQL Buddy")
 
 def getSQL(queryDescription):
+    #queryDescription = "how many rows are in the customer table?"
     completion = openai.ChatCompletion.create(
         model="gpt-4",
         # model="gpt-3.5-turbo",
@@ -25,39 +26,40 @@ def getSQL(queryDescription):
                         Schema: SAFER_LC
                         Table1: LENDING_CLUB_PROFILE
                         Table1 columns:
-                        "CustomerID" VARCHAR(16777216),
-                        "loan_amnt" NUMBER(38,0),
-                        "funded_amnt" NUMBER(38,0),
-                        "term" VARCHAR(16777216),
-                        "int_rate" VARCHAR(16777216),
-                        "installment" FLOAT,
-                        "grade" VARCHAR(16777216),
-                        "sub_grade" VARCHAR(16777216),
-                        "emp_title" VARCHAR(16777216),
-                        "emp_length" VARCHAR(16777216),
-                        "home_ownership" VARCHAR(16777216),
-                        "annual_inc" VARCHAR(16777216),
-                        "verification_status" VARCHAR(16777216),
-                        "purpose" VARCHAR(16777216),
-                        "zip_code" VARCHAR(16777216),
-                        "addr_state" VARCHAR(16777216)
+                        'CustomerID' VARCHAR(16777216),
+                        'loan_amnt' NUMBER(38,0),
+                        'funded_amnt' NUMBER(38,0),
+                        'term' VARCHAR(16777216),
+                        'int_rate' VARCHAR(16777216),
+                        'installment' FLOAT,
+                        'grade' VARCHAR(16777216),
+                        'sub_grade' VARCHAR(16777216),
+                        'emp_title' VARCHAR(16777216),
+                        'emp_length' VARCHAR(16777216),
+                        'home_ownership' VARCHAR(16777216),
+                        'annual_inc' VARCHAR(16777216),
+                        'verification_status' VARCHAR(16777216),
+                        'purpose' VARCHAR(16777216),
+                        'zip_code' VARCHAR(16777216),
+                        'addr_state' VARCHAR(16777216)
                         Table2: LENDING_CLUB_TARGET
                         Table2 columns:
-                        "CustomerID" VARCHAR(16777216),
-                        "BadLoan" VARCHAR(16777216),
-                        "date" DATE
+                        'CustomerID' VARCHAR(16777216),
+                        'BadLoan' VARCHAR(16777216),
+                        'date' DATE
                         Table3: LENDING_CLUB_TRANSACTIONS     
                         Table3 columns:
-                        "CustomerID" VARCHAR(16777216),
-                        "AccountID" VARCHAR(16777216),
-                        "Date" DATE,
-                        "Amount" VARCHAR(16777216),
-                        "Description" VARCHAR(16777216)             
+                        'CustomerID' VARCHAR(16777216),
+                        'AccountID' VARCHAR(16777216),
+                        'Date' DATE,
+                        'Amount' VARCHAR(16777216),
+                        'Description' VARCHAR(16777216)             
                         """
              },
             {"role": "user", "content":queryDescription}
         ]
     )
+    return completion.choices[0].message.content
 
 
 def mainPage():
