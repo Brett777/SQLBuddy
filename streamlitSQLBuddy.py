@@ -118,7 +118,7 @@ def mainPage():
         st.header("SQL Buddy")
 
     with container2:
-        plainEnghlishQuery = st.text_input(label="Ask a question about the data in plain language.", value="How many customer from California had more than 10 transactions and a bad loan?")
+        plainEnghlishQuery = st.text_input(label="Ask a question about the data in plain language.", value="How many customers from California had a bad loan?")
         generateQueryButton = st.button("Get Answer")
         if generateQueryButton:
             st.session_state["generateQueryButtonState"] = True
