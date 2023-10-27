@@ -1,4 +1,5 @@
 import streamlit as st
+import snowflake.connector
 import os
 import openai
 openai.api_key = os.getenv("OPENAI_KEY")
@@ -15,13 +16,13 @@ def getSQL(queryDescription):
         messages=[
             {"role": "system",
              "content": """
-                        You are a SQL expert.
-                        The user will ask for your assistance retrieving data. 
-                        Your response shall be the SQL code and only the SQL code to query the needed data. 
+                        You are an expert in Snowflake SQL.
+                        The user will ask for your assistance in retrieving data from Snowflake. 
+                        Your response shall be the Snowflake SQL code to query the needed data. 
                         Your code shall be clean, concise and executable. 
                         Include comments to explain your code.
-                        Only respond with SQL.
-                        The system is Snowflake.      
+                        Only respond with Snowflake SQL.
+                             
                         Database name: DEMO
                         Schema: SAFER_LC
                         Table1: LENDING_CLUB_PROFILE
@@ -61,6 +62,21 @@ def getSQL(queryDescription):
     )
     return completion.choices[0].message.content
 
+def executeSnowflakeQuery(snowflakeSQL):
+    con = snowflake.connector.connect(
+        user='DATAROBOT',
+        password='D@t@robot',
+        account='datarobot_partner',
+        warehouse='DEMO_WH',
+        database='DEMO',
+        schema='SAFER_LC'
+    )
+    cursor = con.cursor()
+    cursor.execute(snowflakeSQL)
+    results = cursor.fetchall()
+    df = pd.DataFrame(results, columns=[col[0] for col in cursor.description])
+    con.close()
+    return df
 
 def mainPage():
     container1 = st.container()
@@ -73,14 +89,17 @@ def mainPage():
 
     with container2:
         plainEnghlishQuery = st.text_input(label="Describe the query you want to make.")
-        submitQueryButton = st.button("Generate SQL")
-        if submitQueryButton:
+        generateQueryButton = st.button("Generate SQL")
+        if generateQueryButton:
             sqlQuery = getSQL(plainEnghlishQuery)
+
 
     with container3:
         sqlQueryUserText = st.text_area(label="Here is your SQL Query", value=sqlQuery)
-
-
+        executeQueryButton = st.button("Execute Query")
+        if executeQueryButton:
+            df = executeSnowflakeQuery(sqlQuery)
+            st.dataframe(df)
 
 
 
