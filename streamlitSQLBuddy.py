@@ -87,7 +87,6 @@ def sayAnswer(query, answer):
     )
     return completion.choices[0].message.content
 
-
 def executeSnowflakeQuery(snowflakeSQL):
     con = snowflake.connector.connect(
         user='DATAROBOT',
@@ -129,13 +128,12 @@ def mainPage():
                 st.code(st.session_state["sqlQuery"], language="sql")
                 with st.spinner("Executing Query..."):
                     st.session_state["queryResult"] = executeSnowflakeQuery(str(st.session_state["sqlQuery"]))
-                    st.write(st.session_state["queryResult"])
+                    try:
+                        st.dataframe(pd.DateFrame(st.session_state["queryResult"]))
+                    except:
+                        st.write(st.session_state["queryResult"])
+
                     st.write(sayAnswer(str(plainEnghlishQuery), str(st.session_state["queryResult"])))
-
-
-
-
-
 
 #Main app
 def _main():
