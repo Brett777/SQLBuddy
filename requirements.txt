@@ -1,5 +1,6 @@
 streamlit
 requests
+pandas
 openai
 snowflake-connector-python
 pyarrow==10.0.1

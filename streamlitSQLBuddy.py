@@ -1,8 +1,12 @@
 import streamlit as st
 import snowflake.connector
+import pandas as pd
 import os
 import openai
 openai.api_key = os.getenv("OPENAI_KEY")
+
+testSql = """SELECT COUNT(*) 
+FROM DEMO.SAFER_LC.LENDING_CLUB_PROFILE;"""
 
 #Configure the page title, favicon, layout, etc
 st.set_page_config(page_title="SQL Buddy")
@@ -73,6 +77,7 @@ def executeSnowflakeQuery(snowflakeSQL):
     )
     cursor = con.cursor()
     cursor.execute(snowflakeSQL)
+    cursor.execute(testSql)
     results = cursor.fetchall()
     df = pd.DataFrame(results, columns=[col[0] for col in cursor.description])
     con.close()
