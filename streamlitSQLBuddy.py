@@ -17,8 +17,8 @@ def getSQL(queryDescription):
              "content": """
                         You are a SQL expert.
                         The user will ask for your assistance retrieving data. 
-                        Your responses shall be the SQL code to query the data needed by the user. 
-                        Your code should be clean, concise and readable. 
+                        Your response shall be the SQL code and only the SQL code to query the needed data. 
+                        Your code shall be clean, concise and executable. 
                         Include comments to explain your code.
                         Only respond with SQL.
                         The system is Snowflake.      
