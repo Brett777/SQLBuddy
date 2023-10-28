@@ -5,10 +5,10 @@ import os
 import openai
 openai.api_key = os.getenv("OPENAI_KEY")
 
-# snowflakeSQL = """-- This query will count the number of unique customers from California (CA)
-# SELECT COUNT(DISTINCT "CustomerID")
-# FROM "DEMO"."SAFER_LC"."LENDING_CLUB_PROFILE"
-# WHERE "addr_state" = 'CA';"""
+snowflakeSQL = """-- This query will count the number of unique customers from California (CA)
+SELECT COUNT(DISTINCT "CustomerID")
+FROM "DEMO"."SAFER_LC"."LENDING_CLUB_PROFILE"
+WHERE "addr_state" = 'CA';"""
 
 #Configure the page title, favicon, layout, etc
 st.set_page_config(page_title="SQL Buddy")
@@ -125,13 +125,15 @@ def mainPage():
                 st.session_state["sqlQuery"] = getSQL(plainEnghlishQuery)
 
             with container3:
-                st.code(st.session_state["sqlQuery"], language="sql")
+                with st.expander(label="View SQL Code", expanded=False):
+                    st.code(st.session_state["sqlQuery"], language="sql")
                 with st.spinner("Executing Query..."):
                     st.session_state["queryResult"] = executeSnowflakeQuery(str(st.session_state["sqlQuery"]))
-                    try:
-                        st.dataframe(pd.DateFrame(st.session_state["queryResult"]))
-                    except:
-                        st.write(st.session_state["queryResult"])
+                    with st.expander(label="View Query Result", expanded=False):
+                        try:
+                            st.dataframe(pd.DataFrame(st.session_state["queryResult"]))
+                        except:
+                            st.write(st.session_state["queryResult"])
 
                     st.write(sayAnswer(str(plainEnghlishQuery), str(st.session_state["queryResult"])))
 
