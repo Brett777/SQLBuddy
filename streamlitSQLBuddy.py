@@ -11,7 +11,7 @@ FROM "DEMO"."SAFER_LC"."LENDING_CLUB_PROFILE"
 WHERE "addr_state" = 'CA';"""
 
 #Configure the page title, favicon, layout, etc
-st.set_page_config(page_title="SQL Buddy")
+st.set_page_config(page_title="Instaquery", layout="wide")
 
 def getSQL(queryDescription):
     #queryDescription = "how many rows are in the customer table?"
@@ -114,10 +114,10 @@ def mainPage():
         st.session_state["queryResult"] = ""
 
     with container1:
-        st.header("SQL Buddy")
+        st.header("Instaquery")
 
     with container2:
-        plainEnghlishQuery = st.text_input(label="Ask a question about the data in plain language.", value="How many customers from California had a bad loan?")
+        plainEnghlishQuery = st.text_input(label="Ask a question about the Lending Club dataset in plain language.", value="How many customers from California had a bad loan?")
         generateQueryButton = st.button("Get Answer")
         if generateQueryButton:
             st.session_state["generateQueryButtonState"] = True
