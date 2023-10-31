@@ -117,10 +117,10 @@ def mainPage():
         st.header("SQL Buddy")
         st.write("Ask a question about the Lending Club dataset in plain language.")
         st.write("Examples of questions you could try:")
-        st.caption("What is the average term of a bad loan?")
-        st.caption("Which customer had the most transactions and a bad loan?")
-        st.caption("How many transactions did C900001946 have?")
-        st.caption("Do we make more money on short term or long term loans?")
+        st.caption("    What is the average term of a bad loan?")
+        st.caption("    Which customer had the most transactions and a bad loan?")
+        st.caption("    How many transactions did C900001946 have?")
+        st.caption("    Do we make more money on short term or long term loans?")
 
     with container2:
         plainEnghlishQuery = st.text_input(label="Your question", value="How many customers from California had a bad loan?")
