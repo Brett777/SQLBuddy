@@ -5,13 +5,13 @@ import os
 import openai
 openai.api_key = os.getenv("OPENAI_KEY")
 
-snowflakeSQL = """-- This query will count the number of unique customers from California (CA)
-SELECT COUNT(DISTINCT "CustomerID")
-FROM "DEMO"."SAFER_LC"."LENDING_CLUB_PROFILE"
-WHERE "addr_state" = 'CA';"""
+# snowflakeSQL = """-- This query will count the number of unique customers from California (CA)
+# SELECT COUNT(DISTINCT "CustomerID")
+# FROM "DEMO"."SAFER_LC"."LENDING_CLUB_PROFILE"
+# WHERE "addr_state" = 'CA';"""
 
 #Configure the page title, favicon, layout, etc
-st.set_page_config(page_title="Instaquery", layout="wide")
+st.set_page_config(page_title="SQLBuddy", layout="wide")
 
 def getSQL(queryDescription):
     #queryDescription = "how many rows are in the customer table?"
@@ -114,10 +114,13 @@ def mainPage():
         st.session_state["queryResult"] = ""
 
     with container1:
-        st.header("Instaquery")
+        st.header("SQLBuddy")
+        st.write("Ask a question about the Lending Club dataset in plain language.")
+        st.write("The question will be transformed into a query, execute and return a result set.")
+        st.write("Finally, the answer will be provided in sentence form.  ")
 
     with container2:
-        plainEnghlishQuery = st.text_input(label="Ask a question about the Lending Club dataset in plain language.", value="How many customers from California had a bad loan?")
+        plainEnghlishQuery = st.text_input(value="How many customers from California had a bad loan?")
         generateQueryButton = st.button("Get Answer")
         if generateQueryButton:
             st.session_state["generateQueryButtonState"] = True
