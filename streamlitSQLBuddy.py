@@ -116,8 +116,6 @@ def mainPage():
     with container1:
         st.header("SQL Buddy")
         st.write("Ask a question about the Lending Club dataset in plain language.")
-        st.write("The question will be transformed into a query, executed and the result set returned.")
-        st.write("Finally, the answer will be provided in sentence form.  ")
         st.write("Examples of questions you could try:")
         st.caption("What is the average term of a bad loan?")
         st.caption("Which customer had the most transactions and a bad loan?")
