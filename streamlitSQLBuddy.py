@@ -120,7 +120,7 @@ def mainPage():
         st.write("Finally, the answer will be provided in sentence form.  ")
 
     with container2:
-        plainEnghlishQuery = st.text_input(value="How many customers from California had a bad loan?")
+        plainEnghlishQuery = st.text_input(label="Your question", value="How many customers from California had a bad loan?")
         generateQueryButton = st.button("Get Answer")
         if generateQueryButton:
             st.session_state["generateQueryButtonState"] = True
