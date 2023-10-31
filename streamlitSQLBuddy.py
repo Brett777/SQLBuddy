@@ -114,9 +114,9 @@ def mainPage():
         st.session_state["queryResult"] = ""
 
     with container1:
-        st.header("SQLBuddy")
+        st.header("SQL Buddy")
         st.write("Ask a question about the Lending Club dataset in plain language.")
-        st.write("The question will be transformed into a query, execute and return a result set.")
+        st.write("The question will be transformed into a query, executed and the result set returned.")
         st.write("Finally, the answer will be provided in sentence form.  ")
 
     with container2:
