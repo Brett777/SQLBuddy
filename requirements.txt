@@ -1,6 +1,6 @@
 streamlit
 requests
 pandas
-openai==0.28.1
+openai == 0.28
 snowflake-connector-python
 pyarrow==10.0.1

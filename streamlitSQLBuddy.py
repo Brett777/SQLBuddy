@@ -13,11 +13,13 @@ openai.api_key = os.getenv("OPENAI_KEY")
 #Configure the page title, favicon, layout, etc
 st.set_page_config(page_title="SQLBuddy", layout="wide")
 
+# Use LLM to convert the user's question into a SQL query
 def getSQL(queryDescription):
     #queryDescription = "how many rows are in the customer table?"
     completion = openai.ChatCompletion.create(
-        model="gpt-4",
-        # model="gpt-3.5-turbo",
+        # model='gpt-4-1106-preview'
+        # model="gpt-4",
+        model="gpt-3.5-turbo",
         temperature=0.2,
         messages=[
             {"role": "system",
@@ -69,6 +71,23 @@ def getSQL(queryDescription):
     )
     return completion.choices[0].message.content
 
+# Actually execute the query and get the result
+def executeSnowflakeQuery(snowflakeSQL):
+    con = snowflake.connector.connect(
+        user='DATAROBOT',
+        password='D@t@robot',
+        account='datarobot_partner',
+        warehouse='DEMO_WH',
+        database='DEMO',
+        schema='SAFER_LC'
+    )
+    cursor = con.cursor()
+    cursor.execute(snowflakeSQL)
+    results = cursor.fetchall()
+    con.close()
+    return results
+
+# Based on the result set, formulate the answer as a sentence
 def sayAnswer(query, answer):
     completion = openai.ChatCompletion.create(
         model="gpt-4",
@@ -86,21 +105,6 @@ def sayAnswer(query, answer):
         ]
     )
     return completion.choices[0].message.content
-
-def executeSnowflakeQuery(snowflakeSQL):
-    con = snowflake.connector.connect(
-        user='DATAROBOT',
-        password='D@t@robot',
-        account='datarobot_partner',
-        warehouse='DEMO_WH',
-        database='DEMO',
-        schema='SAFER_LC'
-    )
-    cursor = con.cursor()
-    cursor.execute(snowflakeSQL)
-    results = cursor.fetchall()
-    con.close()
-    return results
 
 def mainPage():
     container1 = st.container()
