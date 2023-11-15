@@ -18,8 +18,8 @@ def getSQL(queryDescription):
     #queryDescription = "how many rows are in the customer table?"
     completion = openai.ChatCompletion.create(
         # model='gpt-4-1106-preview'
-        # model="gpt-4",
-        model="gpt-3.5-turbo",
+        model="gpt-4",
+        # model="gpt-3.5-turbo",
         temperature=0.2,
         messages=[
             {"role": "system",
